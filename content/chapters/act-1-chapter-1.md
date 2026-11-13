@@ -1,10 +1,11 @@
 ---
-title: "Chapter 1: The Beginning"
+title: 'Chapter 1: The Beginning'
 story: act-1
 number: 1
 date: 2026-11-10
-hidden: false
+hidden: true
 ---
+
 > *The wind howls across the empty plains.*
 
 **Aria:** Is anyone there?
