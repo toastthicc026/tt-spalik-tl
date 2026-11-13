@@ -3,5 +3,5 @@
   "game": "example-game",
   "number": 1,
   "description": "",
-  "hidden": false
+  "hidden": true
 }
