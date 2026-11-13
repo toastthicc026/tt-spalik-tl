@@ -1,6 +1,10 @@
 {
-  "title": "Game Story Translations",
-  "intro": "Fan translations of game stories, events and character episodes.",
+  "title": "Disney Sparklink Stars",
+  "intro": "Fan translations of the game stories - not 100% accurate\nUpdates are irregular",
   "footer": "Fan translations for non-commercial use. All original content belongs to its respective owners.",
-  "latestCount": 8
+  "latestCount": 8,
+  "font": "serif",
+  "textSize": "medium",
+  "accentColor": "",
+  "highlightColor": ""
 }
