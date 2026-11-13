@@ -8,7 +8,7 @@ hidden: false
 
 Noah: Let's begin, conductor.
 
-Noah: There's no need to be so apprehensive. It's far less common for everything to go smoothly from the start.
+Noah: There's no need to be so anxious. It's far less common for everything to go smoothly from the start.
 
 Noah: I believe that by accumulating knowledge and skills through experience, it's possible to ultimately achieve success.
 
