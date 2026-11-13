@@ -4,5 +4,5 @@
   "number": 1,
   "description": "Aria wakes up in a village with no memory of how she got there.",
   "cover": "content/images/act-1-cover.svg",
-  "hidden": false
+  "hidden": true
 }
