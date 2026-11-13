@@ -52,7 +52,11 @@ if (stories.some(s => !sections.find(sec => sec.id === s.section)))
   sections.push({ id: OTHER, title: 'Other', number: 99999, game: games[0].id });
 
 // ---- Assemble ----
+// A new version stamp on every build, so browsers fetch fresh files instead of old cached copies.
+const version = Date.now().toString(36);
+
 const out = {
+  version,
   title: settings.title || 'Game Story Translations',
   intro: settings.intro || '',
   footer: settings.footer || '',
@@ -95,5 +99,11 @@ for (const c of chapters)
   if (!stories.find(s => s.id === c.story)) warnings.push(`Chapter "${c.title}" isn't linked to an existing story, so it won't show.`);
 
 fs.writeFileSync(path.join(C, 'index.json'), JSON.stringify(out, null, 2) + '\n');
+
+// Stamp app.js and style.css links in index.html with the version too.
+const htmlPath = path.join(__dirname, 'index.html');
+const html = fs.readFileSync(htmlPath, 'utf8')
+  .replace(/(app\.js|style\.css)(\?v=[^"']*)?(["'])/g, `$1?v=${version}$3`);
+fs.writeFileSync(htmlPath, html);
 console.log(`Built content/index.json: ${stories.length} stories, ${chapters.length} chapters.`);
 warnings.forEach(w => console.warn('⚠ ' + w));

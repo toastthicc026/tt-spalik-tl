@@ -254,7 +254,7 @@ async function renderChapter(gameId, storyId, chapterId) {
   app.innerHTML = `<p class="muted">Loading…</p>`;
   let md;
   try {
-    const res = await fetch(file);
+    const res = await fetch(`${file}?v=${site.version || Date.now()}`);
     if (!res.ok) throw new Error(res.status);
     md = (await res.text()).replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, ''); // drop the settings block at the top
   } catch {
@@ -311,24 +311,33 @@ function route() {
 }
 
 // ---------- Init ----------
-fetch('content/index.json', { cache: 'no-cache' })
-  .then(r => r.text())
-  .then(text => {
-    let data;
-    try { data = JSON.parse(text); }
-    catch (e) {
-      app.innerHTML = `<p><strong>There's a typo in <code>content/index.json</code>.</strong></p>
-        <p class="muted">${esc(e.message)}</p>
-        <p class="muted">Common causes: a missing comma between items, an extra comma after the last item, or a missing quote. Paste the file into jsonlint.com to find it.</p>`;
-      return;
-    }
-    site = prune(data);
-    applySiteStyle(site.style);
-    document.getElementById('site-title').textContent = site.title;
-    if (site.footer) document.getElementById('site-footer').textContent = site.footer;
-    window.addEventListener('hashchange', route);
-    route();
-  })
+// Always fetch the newest story list (the timestamp skips any cached copy).
+// Readers who keep the site open get fresh data again when they navigate after a minute.
+let loadedAt = 0;
+async function loadSite() {
+  const text = await (await fetch(`content/index.json?t=${Date.now()}`, { cache: 'no-store' })).text();
+  let data;
+  try { data = JSON.parse(text); }
+  catch (e) {
+    app.innerHTML = `<p><strong>There's a typo in <code>content/index.json</code>.</strong></p>
+      <p class="muted">${esc(e.message)}</p>`;
+    throw e;
+  }
+  for (const k in stories) delete stories[k];
+  site = prune(data);
+  loadedAt = Date.now();
+  applySiteStyle(site.style);
+  document.getElementById('site-title').textContent = site.title;
+  if (site.footer) document.getElementById('site-footer').textContent = site.footer;
+}
+
+window.addEventListener('hashchange', async () => {
+  if (Date.now() - loadedAt > 60000) { try { await loadSite(); } catch {} }
+  route();
+});
+
+loadSite()
+  .then(route)
   .catch(() => {
-    app.innerHTML = `<p>Couldn't load <code>content/index.json</code>. If you opened this file directly, run a local server instead (see README).</p>`;
+    if (!site) app.innerHTML = `<p>Couldn't load <code>content/index.json</code>. If you opened this file directly, run a local server instead (see README).</p>`;
   });
