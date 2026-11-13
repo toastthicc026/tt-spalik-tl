@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Story Editor</title>
+</head>
+<body>
+  <script>window.CMS_MANUAL_INIT = true;</script>
+  <script src="config.js"></script>
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <script>
+    // On GitHub Pages (username.github.io/repo/admin/) fill in the repository automatically.
+    const config = window.STORY_EDITOR_CONFIG;
+    const gh = location.hostname.match(/^([^.]+)\.github\.io$/i);
+    if (gh && config.backend.repo.startsWith('YOUR-USERNAME')) {
+      const first = location.pathname.split('/').filter(Boolean)[0];
+      config.backend.repo = `${gh[1]}/${first && first !== 'admin' ? first : location.hostname}`;
+    }
+    CMS.init({ config: { ...config, load_config_file: false } });
+  </script>
+</body>
+</html>
