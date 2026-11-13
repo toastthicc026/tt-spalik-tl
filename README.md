@@ -62,14 +62,32 @@ Open it and flip **Hide this chapter / story / section** → **Save**.
 Things also hide **automatically** when they have nothing to show: a story with no visible chapters, or a section with no visible stories, won't appear. So you can set up "Sparkrider Stories" now and it'll appear once you add its first chapter.
 
 ### Images
-- **Inside a chapter:** click the **image** button in the text toolbar → upload → it's inserted where your cursor is.
+- **Inside a chapter:** put your cursor where you want it, click the **image** button in the text toolbar, upload, and it's inserted there. You can do this any time, including in chapters you published earlier: open the chapter, add the image, Save.
 - **Story cover:** use the **Cover image** field on the story. Portrait images (3:4, e.g. 600×800) look best.
 - Keep images under ~500 KB so pages load fast. squoosh.app shrinks them for free.
 
-### Formatting tips
-- Speaker names: make them **bold**, e.g. **Aria:** Hello there. They show in the accent color.
-- Narration / scene text: use the **quote** style.
-- Scene break: a line with just `---`.
+### Formatting
+The toolbar has **bold**, *italic*, strikethrough, headings, quotes, lists, links and images.
+For more, type these codes around your text (they're also listed under the Text box in the editor):
+
+| You type | Readers see |
+|---|---|
+| `[red]text[/red]` | red text. Also `blue`, `green`, `purple`, `orange`, `pink`, `gray`, `gold`, `teal` |
+| `[color=#ff6600]text[/color]` | any color (hex code, see htmlcolorcodes.com) |
+| `==text==` | highlighted text |
+| `[hl=#c8f7c5]text[/hl]` | highlight in a chosen color |
+| `[big]` `[huge]` `[small]` … `[/big]` etc. | bigger / smaller text |
+| `[u]text[/u]` | underlined |
+| `[font=hand]text[/font]` | handwriting font (great for letters/notes). Also `sans`, `serif`, `rounded`, `mono` |
+| `[center]text[/center]` / `[right]text[/right]` | centered / right-aligned |
+| `[spoiler]text[/spoiler]` | hidden until the reader taps it |
+
+Codes can be combined: `[center][font=hand][big]The End[/big][/font][/center]`.
+Speaker names: make them **bold**, e.g. **Aria:** Hello. They show in the accent color.
+
+### Site-wide look
+**Site settings** → choose the main **font** (serif, sans-serif or rounded; all support Thai), the **story text size**, the **accent color** and the **highlight color**.
+Readers also get **A− / A+** buttons and a font menu on every chapter, which their browser remembers.
 
 ### The home page
 Builds itself: **Latest updates** (newest chapter dates first), then each section with its stories.

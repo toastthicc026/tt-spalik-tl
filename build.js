@@ -57,6 +57,12 @@ const out = {
   intro: settings.intro || '',
   footer: settings.footer || '',
   latestCount: settings.latestCount || 8,
+  style: {
+    font: settings.font || 'serif',
+    textSize: settings.textSize || 'medium',
+    accent: settings.accentColor || '',
+    highlight: settings.highlightColor || ''
+  },
   games: games.sort(byOrder).map(g => ({
     id: g.id === DEFAULT_GAME ? 'stories' : g.id,
     title: g.title,

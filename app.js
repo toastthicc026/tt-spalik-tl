@@ -35,6 +35,111 @@ const resolveImg = src => {
 
 const lastDate = s => s.chapters.map(c => c.date || '').sort().pop() || '';
 
+// ---------- Fonts ----------
+const FONTS = {
+  serif:   { css: '"Noto Serif", "Noto Serif Thai", Georgia, serif', google: 'Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Thai:wght@400;700' },
+  sans:    { css: '"Noto Sans", "Noto Sans Thai", system-ui, sans-serif', google: 'Noto+Sans:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Thai:wght@400;700' },
+  rounded: { css: '"Nunito", "Mitr", system-ui, sans-serif', google: 'Nunito:ital,wght@0,400;0,700;1,400&family=Mitr:wght@300;500' },
+  hand:    { css: '"Caveat", "Mali", cursive', google: 'Caveat:wght@500;700&family=Mali:wght@400;600' },
+  mono:    { css: 'ui-monospace, "SF Mono", Menlo, Consolas, monospace' }
+};
+const loadedFonts = new Set();
+function loadFont(name) {
+  const f = FONTS[name];
+  if (!f || !f.google || loadedFonts.has(name)) return;
+  loadedFonts.add(name);
+  const l = document.createElement('link');
+  l.rel = 'stylesheet';
+  l.href = `https://fonts.googleapis.com/css2?family=${f.google}&display=swap`;
+  document.head.append(l);
+}
+
+// ---------- Site style (from Site settings) ----------
+const SIZES = { small: '1rem', medium: '1.12rem', large: '1.25rem', 'x-large': '1.4rem' };
+function applySiteStyle(style = {}) {
+  const root = document.documentElement.style;
+  const font = FONTS[style.font] ? style.font : 'serif';
+  loadFont(font);
+  root.setProperty('--font-main', FONTS[font].css);
+  root.setProperty('--base-size', SIZES[style.textSize] || SIZES.medium);
+  if (/^#[0-9a-f]{3,8}$/i.test(style.accent || '')) root.setProperty('--accent', style.accent);
+  if (/^#[0-9a-f]{3,8}$/i.test(style.highlight || '')) root.setProperty('--highlight', style.highlight);
+}
+
+// ---------- Reader preferences (A− / A+ / font) ----------
+const pref = {
+  get: (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
+  set: (k, v) => { try { localStorage.setItem(k, v); } catch {} }
+};
+function applyReaderPrefs() {
+  const scale = parseFloat(pref.get('readerScale', '1')) || 1;
+  document.documentElement.style.setProperty('--reader-scale', scale);
+  const f = pref.get('readerFont', '');
+  if (f && FONTS[f]) { loadFont(f); document.documentElement.style.setProperty('--font-reader', FONTS[f].css); }
+  else document.documentElement.style.removeProperty('--font-reader');
+}
+applyReaderPrefs();
+
+function readerToolbar() {
+  return `
+    <div class="reader-tools" role="group" aria-label="Reading settings">
+      <button data-act="smaller" title="Smaller text">A−</button>
+      <button data-act="bigger" title="Bigger text">A+</button>
+      <select data-act="font" title="Font">
+        <option value="">Default font</option>
+        <option value="serif">Serif</option>
+        <option value="sans">Sans-serif</option>
+        <option value="rounded">Rounded</option>
+      </select>
+    </div>`;
+}
+function wireReaderToolbar() {
+  const box = app.querySelector('.reader-tools');
+  if (!box) return;
+  const sel = box.querySelector('select');
+  sel.value = pref.get('readerFont', '');
+  box.onclick = e => {
+    const act = e.target.dataset.act;
+    if (act !== 'smaller' && act !== 'bigger') return;
+    let s = parseFloat(pref.get('readerScale', '1')) || 1;
+    s = Math.min(1.8, Math.max(0.75, s + (act === 'bigger' ? 0.1 : -0.1)));
+    pref.set('readerScale', s.toFixed(2));
+    applyReaderPrefs();
+  };
+  sel.onchange = () => { pref.set('readerFont', sel.value); applyReaderPrefs(); };
+}
+
+// ---------- Text formatting codes ----------
+// Typed in the editor as e.g. [red]text[/red], ==highlight==, [big]text[/big], [center]…[/center]
+const COLOR_NAMES = ['red', 'blue', 'green', 'purple', 'orange', 'pink', 'gray', 'grey', 'gold', 'teal'];
+const SAFE_COLOR = /^(#[0-9a-f]{3,8}|[a-z]{3,20})$/i;
+function applyFormatting(md) {
+  const open = (tag, arg) => {
+    tag = tag.toLowerCase();
+    if (COLOR_NAMES.includes(tag)) return `<span class="c-${tag === 'grey' ? 'gray' : tag}">`;
+    switch (tag) {
+      case 'color': return SAFE_COLOR.test(arg || '') ? `<span style="color:${arg}">` : '<span>';
+      case 'hl': return SAFE_COLOR.test(arg || '') ? `<mark style="background:${arg}">` : '<mark>';
+      case 'big': case 'huge': case 'small': case 'u': return `<span class="t-${tag}">`;
+      case 'font': loadFont((arg || '').toLowerCase()); return FONTS[(arg || '').toLowerCase()] ? `<span class="f-${arg.toLowerCase()}">` : '<span>';
+      case 'spoiler': return '<span class="spoiler" tabindex="0" title="Tap to reveal">';
+      case 'center': case 'right': return `\n\n<div class="align-${tag}">\n\n`;
+    }
+    return null;
+  };
+  const close = tag => {
+    tag = tag.toLowerCase();
+    if (tag === 'center' || tag === 'right') return '\n\n</div>\n\n';
+    if (tag === 'hl') return '</mark>';
+    return '</span>';
+  };
+  const known = [...COLOR_NAMES, 'color', 'hl', 'big', 'huge', 'small', 'u', 'font', 'spoiler', 'center', 'right'].join('|');
+  return md
+    .replace(new RegExp(`\\\\?\\[(${known})(?:=([^\\]\\s]+))?\\\\?\\]`, 'gi'), (m, t, a) => open(t, a) ?? m)
+    .replace(new RegExp(`\\\\?\\[\\/(${known})\\\\?\\]`, 'gi'), (m, t) => close(t))
+    .replace(/==([^=\n][^\n]*?)==/g, '<mark>$1</mark>');
+}
+
 // Drop hidden chapters, then empty stories, sections and games.
 function prune(data) {
   data.games = (data.games || []).map(g => ({
@@ -159,10 +264,13 @@ async function renderChapter(gameId, storyId, chapterId) {
 
   document.title = `${c.title} · ${s.title}`;
   app.innerHTML = `
-    <div class="breadcrumb"><a href="#/">Home</a> › <a href="${storyLink(g, s)}">${esc(s.title)}</a></div>
+    <div class="reader-bar">
+      <div class="breadcrumb"><a href="#/">Home</a> › <a href="${storyLink(g, s)}">${esc(s.title)}</a></div>
+      ${readerToolbar()}
+    </div>
     <article>
       <h1>${esc(c.title)}</h1>
-      ${marked.parse(md)}
+      ${marked.parse(applyFormatting(md))}
     </article>
     <nav class="chapter-nav">
       <span>${prev ? `<a href="${chapterLink(g, s, prev)}">← ${esc(prev.title)}</a>` : ''}</span>
@@ -185,6 +293,8 @@ async function renderChapter(gameId, storyId, chapterId) {
       p.replaceWith(fig);
     }
   });
+  app.querySelectorAll('.spoiler').forEach(sp => sp.onclick = () => sp.classList.toggle('revealed'));
+  wireReaderToolbar();
   window.scrollTo(0, 0);
 }
 
@@ -213,6 +323,7 @@ fetch('content/index.json', { cache: 'no-cache' })
       return;
     }
     site = prune(data);
+    applySiteStyle(site.style);
     document.getElementById('site-title').textContent = site.title;
     if (site.footer) document.getElementById('site-footer').textContent = site.footer;
     window.addEventListener('hashchange', route);

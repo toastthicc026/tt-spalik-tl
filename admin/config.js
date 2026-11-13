@@ -83,7 +83,7 @@ window.STORY_EDITOR_CONFIG = {
           "label": "Text",
           "name": "body",
           "widget": "markdown",
-          "hint": "Tip: bold the speaker's name, e.g. **Aria:** Hello. Use the quote button for narration."
+          "hint": "Formatting codes (type them around your text): [red]text[/red] — also blue, green, purple, orange, pink, gray, gold, teal · [color=#ff6600]text[/color] any color · ==text== highlight · [hl=#c8f7c5]text[/hl] highlight in a color · [big] [huge] [small] [u] size/underline · [font=hand] [font=sans] [font=serif] [font=mono] · [center]…[/center] [right]…[/right] · [spoiler]text[/spoiler] hidden until tapped. Bold the speaker name: **Aria:** Hello."
         }
       ]
     },
@@ -265,6 +265,74 @@ window.STORY_EDITOR_CONFIG = {
               "widget": "number",
               "value_type": "int",
               "default": 8
+            },
+            {
+              "label": "Font",
+              "name": "font",
+              "widget": "select",
+              "default": "serif",
+              "options": [
+                {
+                  "label": "Serif (book style)",
+                  "value": "serif"
+                },
+                {
+                  "label": "Sans-serif (clean)",
+                  "value": "sans"
+                },
+                {
+                  "label": "Rounded (friendly)",
+                  "value": "rounded"
+                }
+              ],
+              "hint": "Main font for the whole site. All options support Thai."
+            },
+            {
+              "label": "Story text size",
+              "name": "textSize",
+              "widget": "select",
+              "default": "medium",
+              "options": [
+                {
+                  "label": "Small",
+                  "value": "small"
+                },
+                {
+                  "label": "Medium",
+                  "value": "medium"
+                },
+                {
+                  "label": "Large",
+                  "value": "large"
+                },
+                {
+                  "label": "Extra large",
+                  "value": "x-large"
+                }
+              ],
+              "hint": "Readers can still make it bigger or smaller with the A− / A+ buttons."
+            },
+            {
+              "label": "Accent color",
+              "name": "accentColor",
+              "widget": "string",
+              "required": false,
+              "pattern": [
+                "^(#[0-9a-fA-F]{6})?$",
+                "Use a hex color like #8a4b2a"
+              ],
+              "hint": "Color for links, speaker names and section underlines, as a hex code like #8a4b2a. Leave empty for the default. Find codes at htmlcolorcodes.com"
+            },
+            {
+              "label": "Highlight color",
+              "name": "highlightColor",
+              "widget": "string",
+              "required": false,
+              "pattern": [
+                "^(#[0-9a-fA-F]{6})?$",
+                "Use a hex color like #fff0a8"
+              ],
+              "hint": "Background color for ==highlighted== text, e.g. #fff0a8. Leave empty for the default."
             }
           ]
         }
