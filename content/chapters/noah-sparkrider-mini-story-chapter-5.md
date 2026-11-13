@@ -1,7 +1,7 @@
 ---
-title: Chapter 5
+title: Mini Story - Chapter 5
 story: noah-sparkrider-mini-story
-number: 5
+number: 13
 date: 2026-11-14
 hidden: false
 ---
