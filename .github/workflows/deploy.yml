@@ -19,9 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 22
       - name: Build story list
         run: |
           npm install --silent --prefix "$RUNNER_TEMP/deps" js-yaml@4
