@@ -3,7 +3,7 @@ title: Mini Story - Chapter 4
 story: noah-sparkrider-mini-story
 number: 9
 date: 2026-11-14
-hidden: false
+hidden: true
 ---
 
 Noah: Spending time with you often makes me realize that what matters is not quantity, but quality.
