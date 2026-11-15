@@ -3,7 +3,7 @@ title: Mini Story - Chapter 5
 story: noah-sparkrider-mini-story
 number: 13
 date: 2026-11-14
-hidden: false
+hidden: true
 ---
 
 Noah: Hmm... Not bad for a first attempt... No, it's far better than I imagined.
