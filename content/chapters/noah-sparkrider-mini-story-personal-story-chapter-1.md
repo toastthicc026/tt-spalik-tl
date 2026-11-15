@@ -6,11 +6,11 @@ date: 2026-11-16
 hidden: false
 ---
 
-Conductor: aMazINC.'s calm and cool long-lifespan Rider.
+aMazINC.'s calm and cool long-lifespan Rider.
 
-Conductor: Noah Slugger. I wonder what kind of person he is?
+Noah Slugger. I wonder what kind of person he is?
 
-Conductor: I hope I can be of help...
+I hope I can be of help...
 
 ==== aMazINC.'s Apartment Living Room ====
 
@@ -239,7 +239,6 @@ Noah: But this is the first and last time.
 Noah: Just once, and only for you, I'll perform a Spark Ride.
 
 Noah: Enjoy it to the fullest.
-
 
 Conductor: And so began my special days with Noah.
 
