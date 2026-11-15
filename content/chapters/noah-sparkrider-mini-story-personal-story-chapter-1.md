@@ -6,11 +6,13 @@ date: 2026-11-14
 hidden: false
 ---
 
-Conductor: amazINC.'s calm and cool long-lifespan Rider.
+Conductor: aMazINC.'s calm and cool long-lifespan Rider.
 
 Conductor: Noah Slugger. I wonder what kind of person he is?
 
 Conductor: I hope I can be of help...
+
+==== aMazINC.'s Apartment Living Room ====
 
 Noah: ………….
 
