@@ -240,6 +240,7 @@ Noah: Just once, and only for you, I'll perform a Spark Ride.
 
 Noah: Enjoy it to the fullest.
 
+
 Conductor: And so began my special days with Noah.
 
 Conductor: Lessons, rehearsals, and competition with rivals.
