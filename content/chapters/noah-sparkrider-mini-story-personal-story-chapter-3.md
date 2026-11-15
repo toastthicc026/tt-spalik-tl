@@ -218,9 +218,9 @@ Noah: Is that you? What's wrong? Why the long face?
 
 Conductor: Sorry, the plan failed.
 
-Noah: Failure?
+Noah: Failed?
 
-Noah: Oh, you mean the get-together?
+Noah: Oh, you mean the meet-and-greet?
 
 Noah: In that case, summarize your shortcomings in a report. Let's see... roughly 300 pages?
 
