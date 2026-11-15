@@ -266,13 +266,13 @@ Noah: It's not a wrong expression, though.
 
 Choice 3: You three will perform in the Star Ride for sure.
 
-_┌ if choice 3:_
+┌ if choice 3:
 
 Noah: There's no need to be so considerate.
 
 Noah: Don't hold back, tell me the truth.
 
-_└ (choices rejoin)_
+└ (choices rejoin)
 
 Noah: Currently, aMazINC. is facing a major problem.
 
