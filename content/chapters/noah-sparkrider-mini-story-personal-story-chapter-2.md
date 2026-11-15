@@ -6,6 +6,8 @@ date: 2026-11-14
 hidden: false
 ---
 
+==== aMazINC.'s Apartment Living Room ====
+
 Conductor: Good morning.
 
 Noah: ...Huh?
@@ -20,6 +22,8 @@ Conductor: Then I'll come in the morning.
 
 Noah: ...Do as you please.
 
+==== Noah's Office Practice Room ====
+
 Noah: First, some light stretching. This helps to switch the autonomic nervous system and improve blood flow.
 
 Noah: Doing stretches in the morning improves concentration and memory.
@@ -27,6 +31,8 @@ Noah: Doing stretches in the morning improves concentration and memory.
 Noah: ...You're done?
 
 Noah: Now, let's prepare breakfast. Follow me.
+
+==== aMazINC.'s Apartment Living Room ====
 
 Noah: 6:20 AM. We finished 10 minutes earlier than usual.
 
@@ -92,7 +98,7 @@ Noah: I see.
 
 Noah: ...How about you?
 
-Conductor: It's really yummy.
+Choice 1: It's really yummy.
 
 _┌ if choice 1:_
 
@@ -100,7 +106,7 @@ Noah: That's fine then.
 
 Noah: Eat it all.
 
-Conductor: The portion's a bit much.
+Choice 2: The portion's a bit much.
 
 _┌ if choice 2:_
 
@@ -108,7 +114,7 @@ Noah: This is the amount you need.
 
 Noah: For the sake of your health, finish it all.
 
-└ (choices rejoin)
+_└ (choices rejoin)_
 
 Laughta: Phew... Just the right amount!
 
@@ -180,9 +186,11 @@ Laughta: No matter what you say, I'm aMazINC.'s number one spark rider!
 
 Noah: I hope so...
 
+====Electri City Tale Tree====
+
 Noah: I'm sorry for bringing you to a place like this so late at night.
 
-Conductor: Here is... ah, that's the Tale Tree.
+Conductor: Here is... the Tale Tree.
 
 Noah: Yes.
 
@@ -236,7 +244,7 @@ Noah: But we can't rely on miracles that won't happen.
 
 Noah: That's why we have to overcome this situation with our own strength.
 
-Conductor: This is about amazINC., right?
+Conductor: This is about aMazINC., right?
 
 Noah: That's right.
 
