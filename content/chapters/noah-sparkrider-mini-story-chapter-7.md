@@ -3,7 +3,7 @@ title: Mini Story - Chapter 7
 story: noah-sparkrider-mini-story
 number: 17
 date: 2026-11-14
-hidden: false
+hidden: true
 ---
 
 Noah: The word "supreme" is perhaps the most fitting word to describe this moment.
