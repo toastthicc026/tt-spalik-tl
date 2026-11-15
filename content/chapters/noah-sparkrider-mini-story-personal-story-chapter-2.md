@@ -2,7 +2,7 @@
 title: Personal Story - Chapter 2
 story: noah-sparkrider-mini-story
 number: 2
-date: 2026-11-14
+date: 2026-11-16
 hidden: false
 ---
 
